@@ -186,7 +186,7 @@ int main()
 		while((input != 'N' && input != 'Y') || clearFailedExtraction())
 		{
 			std::cout << "Please try again!\n";
-			input = getInput<char>();
+			input = static_cast<char>(std::toupper(getInput<char>()));
 		}
 		
 	}
