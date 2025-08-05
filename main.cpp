@@ -120,13 +120,13 @@ int main()
 				pos = getBoardPosInput();
 			}
 			boardState[pos.first][pos.second] = side;
+			turns++; // increase turn each time the side has completed their move
 			
-			if(checkWin(boardState, side) !! turns = MAX_TURN)
+			if(checkWin(boardState, side) == true || turns == MAX_TURN)
 				break;
 			
 			side = (side == PLAYER_0 ? PLAYER_1 : PLAYER_0); // change side each time player enter his input
 
-			turns++; // increase turn each time the side has completed their move
 	}	
 		clearScreen();
 		printBoard(boardState);

@@ -1,15 +1,16 @@
 #include <iostream>
 #include "print.h"
+#include "constants.h"
 
-void printBoard(const std::array<std::array<int, 3>, 3>& boardState)
+void printBoard(const std::array<std::array<int, MAX_GRIP>, MAX_GRIP>& boardState)
 {
-	for(int i = 0; i < 3; i++)
+	for(int i = FIRST; i <= LAST; i++)
 	{	
-		for(int j = 0; j < 3; j++)
+		for(int j = FIRST; j < LAST; j++)
 		{
-			if(boardState[i][j] == 9) std::cout << '.' << ' ';
-			if(boardState[i][j] == 1) std::cout << 'O' << ' ';
-			if(boardState[i][j] == 0) std::cout << 'X' << ' ';
+			if(boardState[i][j] == EMPTY) std::cout << '.' << ' ';
+			if(boardState[i][j] == PLAYER_0) std::cout << 'O' << ' ';
+			if(boardState[i][j] == PLAYER_1) std::cout << 'X' << ' ';
 		}
 		std::cout << "\n";
 	}

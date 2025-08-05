@@ -1,21 +1,21 @@
 #include <iostream>
 #include "gamerule.h"
+#include "constants.h"
 
-bool checkWin(const std::array<std::array<int, 3>, 3>& boardState, int side)
+bool checkWin(const std::array<std::array<int, MAX_GRIP>, MAX_GRIP>& boardState, int side)
 {	
-	
 	// check columns and rows in the board
-	for(int i = 0; i < 3; i++)
+	for(int i = FIRST; i <= LAST; i++)
 	{
-		if(boardState[0][i] == side && boardState[1][i] == side && 
-boardState[2][i] == side)
+		if(boardState[FIRST][i] == side && boardState[1][i] == side && 
+boardState[LAST][i] == side)
 		{	
 //			std::cout << "Row : " << i << '\n'; 
 			return true; 
 		}
 
-		if(boardState[i][0] == side && boardState[i][1] == side && 
-boardState[i][2] == side)
+		if(boardState[i][FIRST] == side && boardState[i][1] == side && 
+boardState[i][LAST] == side)
 		{	
 //			std::cout << "Col : " << i << '\n'; 
 			return true; 
@@ -23,17 +23,17 @@ boardState[i][2] == side)
 	}
 	
 	// check diagonals in the board
-	if(boardState[0][0] == side && boardState[1][1] == side && 
-boardState[2][2] == side)
+	if(boardState[FIRST][FIRST] == side && boardState[1][1] == side && 
+boardState[LAST][LAST] == side)
 	{
-//		std::cout << "diag : 0,0 to 2,2\n";
+//		std::cout << "diag : FIRST,FIRST to LAST,LAST\n";
 		return true;
 	}
 	
-	if(boardState[0][2] == side && boardState[1][1] == side && 
-boardState[2][0] == side)
+	if(boardState[FIRST][LAST] == side && boardState[1][1] == side && 
+boardState[LAST][FIRST] == side)
 	{
-//		std::cout << "diag : 0,2 to 2,0\n";
+//		std::cout << "diag : FIRST,LAST to LAST,FIRST\n";
 		return true;
 	}
 
