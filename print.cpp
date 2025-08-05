@@ -18,7 +18,7 @@ void printBoard(const std::array<std::array<int, MAX_GRIP>, MAX_GRIP>& boardStat
 
 void printWelcomeScreen()
 {
-	std::cout << "TicTacToe (v1.0) by NTA2008\n\n";
+	std::cout << "TicTacToe (v1.01) by NTA2008\n\n";
 	std::cout << "Play [P]\n";
 	std::cout << "Quit [Q]\n";
 }

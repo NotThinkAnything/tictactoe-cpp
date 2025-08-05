@@ -5,7 +5,7 @@
 	constexpr int PLAYER_0 = 0;
 	constexpr int PLAYER_1 = 1;
 	constexpr int MAX_GRIP = 3;
-	constexpr int MAX_TURN = 9;
+	constexpr int MAX_TURN = MAX_GRIP * MAX_GRIP;
 	constexpr int FIRST = 0;
 	constexpr int LAST = 2;
 	
