@@ -3,6 +3,8 @@
 #include <utility>
 #include <limits>
 #include <cctype>
+#include "print.h"
+#include "gamerule.h"
 
 void ignoreLine()
 {
@@ -27,7 +29,7 @@ bool clearFailedExtraction()
 	return false;
 }
 
-bool checkNumber(int i)
+bool checkIndexInRange(int i)
 {
 	return (i >= 0 && i <= 2);
 }
@@ -48,27 +50,6 @@ T getInput()
 	return x;
 }
 
-void printBoard(std::array<std::array<int, 3>, 3> boardState)
-{
-	for(int i = 0; i < 3; i++)
-	{	
-		for(int j = 0; j < 3; j++)
-		{
-			if(boardState[i][j] == 9) std::cout << '.' << ' ';
-			if(boardState[i][j] == 1) std::cout << 'O' << ' ';
-			if(boardState[i][j] == 0) std::cout << 'X' << ' ';
-		}
-		std::cout << "\n";
-	}
-}
-
-void printWelcomeScreen()
-{
-	std::cout << "TicTacToe (v1.0) by NTA2008\n\n";
-	std::cout << "Play [P]\n";
-	std::cout << "Quit [Q]\n";
-}
-
 std::pair<int, int> getInput()
 {
 	std::pair<int, int> pos;
@@ -76,7 +57,8 @@ std::pair<int, int> getInput()
 	std::cin >> pos.first >> pos.second;
 	
 	// check for failed extraction or meaningless posut
-	while(clearFailedExtraction() || !checkNumber(pos.first) || !checkNumber(pos.second))
+	while(clearFailedExtraction() || !checkIndexInRange(pos.first)
+ || !checkIndexInRange(pos.second))
 	{
 		std::cout << "Please try again!\n";
 		std::cin >> pos.first >> pos.second;
@@ -85,49 +67,9 @@ std::pair<int, int> getInput()
 	return pos;
 }
 
-bool checkWin(std::array<std::array<int, 3>, 3> boardState, int side)
-{	
-	
-	// check columns and rows in the board
-	for(int i = 0; i < 3; i++)
-	{
-		if(boardState[0][i] == side && boardState[1][i] == side && 
-boardState[2][i] == side)
-		{	
-//			std::cout << "Row : " << i << '\n'; 
-			return true; 
-		}
-
-		if(boardState[i][0] == side && boardState[i][1] == side && 
-boardState[i][2] == side)
-		{	
-//			std::cout << "Col : " << i << '\n'; 
-			return true; 
-		}
-	}
-	
-	// check diagonals in the board
-	if(boardState[0][0] == side && boardState[1][1] == side && 
-boardState[2][2] == side)
-	{
-//		std::cout << "diag : 0,0 to 2,2\n";
-		return true;
-	}
-	
-	if(boardState[0][2] == side && boardState[1][1] == side && 
-boardState[2][0] == side)
-	{
-//		std::cout << "diag : 0,2 to 2,0\n";
-		return true;
-	}
-
-//	std::cout << "Not exist yet!\n";
-	return false;
-}
-
 int main()
 {	
-	system("clear");
+	clearScreen();
 	printWelcomeScreen();
 	char input{ static_cast<char>(std::toupper(getInput<char>())) };
 	
@@ -140,7 +82,7 @@ int main()
 	
 	while(true)
 	{	
-		system("clear");
+		clearScreen();
 		std::array<std::array<int, 3>, 3> boardState // create a empty board
 		{{
 			{{9, 9, 9}},
@@ -152,7 +94,7 @@ int main()
 		
 		while(!checkWin(boardState, side) && turns < 9)
 		{		
-			system("clear");
+			clearScreen();
 			side = (side == 0 ? 1 : 0); // change side each time the loop is repeated
 			printBoard(boardState);
 		
@@ -168,6 +110,8 @@ int main()
 
 			turns++; // increase turn each time the side has completed their move
 	}	
+		clearScreen();
+		printBoard(boardState);
 		if(turns == 9 && !checkWin(boardState, side))
 		{
 			std::cout << "It's a draw!\n";

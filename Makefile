@@ -1,8 +1,17 @@
 
-all: main
+CXXFLAGS = -std=c++17 -O2 -Wall
+CXX = g++
+SRC = $(wildcard *.cpp)
+OBJ = $(SRC:.cpp=.o)
+TARGET = main
 
-main: main.cpp
-	g++ -std=c++17 main.cpp -o main
+all: $(TARGET)
+
+$(TARGET): $(OBJ)
+	$(CXX) $(CXXFLAGS) $^ -o $@
+
+run: $(TARGET)
+	./$(TARGET)
 	
-run:
-	./main
+clean:
+	rm -f $(OBJ) $(TARGET)
