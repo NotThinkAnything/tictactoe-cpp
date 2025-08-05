@@ -1,15 +1,19 @@
-# tictactoe-cpp
-My own (somewhat decent) recreation of TicTacToe! My first every project!
+# tictactoe-cpp (v1.01)
 
-I am currently working in other features in the game such as playing against AI, saving your score, better UI...
-I hope you guys having fun in my game =)
+This is my first ever project - a simple yet functional recreation of the classic game Tic Tac Toe!
 
-TicTacToe (v1.01)
+I am currently working on new features like:
 
-*Feature
+-Playing again AI opponent
+-Saving player scores
+-Better and more user-friendly UI
 
--better code organizing
+*Features:
 
--fixing some bugs in inputting process
+-Better code organization
 
--improving readability and maintainability
+-Bug fixes related to input processing
+
+-Improved readability and maintainability
+
+I hope you guys enjoy playing my game as much as I enjoyed building it!
