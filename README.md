@@ -5,8 +5,11 @@ This is my first ever project - a simple yet functional recreation of the classi
 I am currently working on new features like:
 
 -Playing again AI opponent
+
 -Saving player scores
+
 -Better and more user-friendly UI
+
 
 *Features:
 
