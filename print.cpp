@@ -6,7 +6,7 @@ void printBoard(const std::array<std::array<int, MAX_GRIP>, MAX_GRIP>& boardStat
 {
 	for(int i = FIRST; i <= LAST; i++)
 	{	
-		for(int j = FIRST; j < LAST; j++)
+		for(int j = FIRST; j <= LAST; j++)
 		{
 			if(boardState[i][j] == EMPTY) std::cout << '.' << ' ';
 			if(boardState[i][j] == PLAYER_0) std::cout << 'O' << ' ';

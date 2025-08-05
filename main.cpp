@@ -44,41 +44,39 @@ template<typename T>
 T getInput()
 {	
 	T x;
-	std::cout << "Enter your input: ";
-	std::cin >> x;
-	
-	while(clearFailedExtraction())
+	while(true)
 	{
-		std::cout << "Please try again!\n";
+		std::cout << "Enter your input: ";
 		std::cin >> x;
-		if(hasUnextractedInput())
+		
+		if(!clearFailedExtraction() && !hasUnextractedInput())
 		{
-			ignoreLine();
+			break;
 		}
+		
+		std::cout << "Please try again!\n";
+		ignoreLine();
 	}
-	
 	return x;
 }
 
 std::pair<int, int> getBoardPosInput()
 {
-	std::pair<int, int> pos;
-	std::cout << "Enter your position (x, y): ";
-	std::cin >> pos.first >> pos.second;
-	
-	// check for failed extraction or meaningless posut
-	while(clearFailedExtraction() ||
-		  !checkIndexInRange(pos.first) ||
-		  !checkIndexInRange(pos.second))
-	{
-		std::cout << "Please try again!\n";
-		std::cin >> pos.first >> pos.second;
-		if(hasUnextractedInput())
+		std::pair<int, int> pos;
+		while(true)
 		{
-			ignoreLine(); // ignore unextracted input
-		}
+			std::cout << "Enter your position (x, y): ";
+			std::cin >> pos.first >> pos.second;
+		
+			if(!clearFailedExtraction() && 
+				 checkIndexInRange(pos.first) &&
+				 checkIndexInRange(pos.second) &&
+				 !hasUnextractedInput())
+				 {
+			 	 break;
+			 	}
+			std::cout << "Please try again!\n";		
 	}
-	
 	return pos;
 }
 
@@ -156,5 +154,5 @@ int main()
 		}
 		
 	}
-    return PLAYER_0;
+    return 0;
 }
