@@ -1,7 +1,7 @@
 #include <iostream>
 #include "print.h"
 
-void printBoard(std::array<std::array<int, 3>, 3> boardState)
+void printBoard(const std::array<std::array<int, 3>, 3>& boardState)
 {
 	for(int i = 0; i < 3; i++)
 	{	

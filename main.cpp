@@ -5,10 +5,16 @@
 #include <cctype>
 #include "print.h"
 #include "gamerule.h"
+#include "constants.h"
 
 void ignoreLine()
 {
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+}
+
+bool hasUnextractedInput()
+{
+    return !std::cin.eof() && std::cin.peek() != '\n';
 }
 
 bool clearFailedExtraction()
@@ -17,7 +23,7 @@ bool clearFailedExtraction()
 	{
 		if(std::cin.eof())
 		{
-			std::exit(0);
+			std::exit(0); // exit if user enter the EOF charactor
 		}
 		
 		std::cin.clear();
@@ -31,7 +37,7 @@ bool clearFailedExtraction()
 
 bool checkIndexInRange(int i)
 {
-	return (i >= 0 && i <= 2);
+	return (i >= FIRST && i <= LAST);
 }
 
 template<typename T> 
@@ -45,23 +51,32 @@ T getInput()
 	{
 		std::cout << "Please try again!\n";
 		std::cin >> x;
+		if(hasUnextractedInput())
+		{
+			ignoreLine();
+		}
 	}
 	
 	return x;
 }
 
-std::pair<int, int> getInput()
+std::pair<int, int> getBoardPosInput()
 {
 	std::pair<int, int> pos;
 	std::cout << "Enter your position (x, y): ";
 	std::cin >> pos.first >> pos.second;
 	
 	// check for failed extraction or meaningless posut
-	while(clearFailedExtraction() || !checkIndexInRange(pos.first)
- || !checkIndexInRange(pos.second))
+	while(clearFailedExtraction() ||
+		  !checkIndexInRange(pos.first) ||
+		  !checkIndexInRange(pos.second))
 	{
 		std::cout << "Please try again!\n";
 		std::cin >> pos.first >> pos.second;
+		if(hasUnextractedInput())
+		{
+			ignoreLine(); // ignore unextracted input
+		}
 	}
 	
 	return pos;
@@ -83,43 +98,46 @@ int main()
 	while(true)
 	{	
 		clearScreen();
-		std::array<std::array<int, 3>, 3> boardState // create a empty board
+		std::array<std::array<int, MAX_GRIP>, MAX_GRIP> boardState // create a empty board
 		{{
-			{{9, 9, 9}},
-			{{9, 9, 9}},
-			{{9, 9, 9}}
+			{{EMPTY, EMPTY, EMPTY}},
+			{{EMPTY, EMPTY, EMPTY}},
+			{{EMPTY, EMPTY, EMPTY}}
 		}};
-		int side{ 1 };
+		int side{ PLAYER_0 };
 		int turns{};
 		
-		while(!checkWin(boardState, side) && turns < 9)
+		while(!checkWin(boardState, side) && turns < MAX_TURN)
 		{		
 			clearScreen();
-			side = (side == 0 ? 1 : 0); // change side each time the loop is repeated
 			printBoard(boardState);
 		
-			std::pair<int, int> pos{ getInput() };
+			std::pair<int, int> pos{ getBoardPosInput() };
 		
-			while(boardState[pos.first][pos.second] == 0 
-		|| boardState[pos.first][pos.second] == 1)
+			while(boardState[pos.first][pos.second] != EMPTY)
 			{
 				std::cout << "Cell already taken. Try again.\n";
-				pos = getInput();
+				pos = getBoardPosInput();
 			}
 			boardState[pos.first][pos.second] = side;
+			
+			if(checkWin(boardState, side) !! turns = MAX_TURN)
+				break;
+			
+			side = (side == PLAYER_0 ? PLAYER_1 : PLAYER_0); // change side each time player enter his input
 
 			turns++; // increase turn each time the side has completed their move
 	}	
 		clearScreen();
 		printBoard(boardState);
-		if(turns == 9 && !checkWin(boardState, side))
+		if(turns == MAX_TURN && !checkWin(boardState, side))
 		{
 			std::cout << "It's a draw!\n";
 		}
 		else
 		{
-			if(side == 1) std::cout << "1 WIN!\n";
-			else std::cout << "0 WIN!\n";
+			if(side == PLAYER_1) std::cout << "PLAYER_1 WIN!\n";
+			else std::cout << "PLAYER_0 WIN!\n";
 		}
 		
 		std::cout << "Do you want to continue?\n";
@@ -131,8 +149,12 @@ int main()
 		{
 			std::cout << "Please try again!\n";
 			input = static_cast<char>(std::toupper(getInput<char>()));
+			if(hasUnextractedInput())
+			{
+				ignoreLine();
+			}
 		}
 		
 	}
-    return 0;
+    return PLAYER_0;
 }

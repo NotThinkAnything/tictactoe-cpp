@@ -1,7 +1,7 @@
 #include <iostream>
 #include "gamerule.h"
 
-bool checkWin(std::array<std::array<int, 3>, 3> boardState, int side)
+bool checkWin(const std::array<std::array<int, 3>, 3>& boardState, int side)
 {	
 	
 	// check columns and rows in the board

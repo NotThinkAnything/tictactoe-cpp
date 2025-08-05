@@ -2,6 +2,6 @@
 
 #ifndef GAMERULE_H
 #define GAMERULE_H
-	bool checkWin(std::array<std::array<int, 3>, 3>, int);
+	bool checkWin(cosnt std::array<std::array<int, 3>, 3>&, int);
 
 #endif
