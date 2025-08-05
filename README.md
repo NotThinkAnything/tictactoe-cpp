@@ -6,7 +6,7 @@ I hope you guys having fun in my game =)
 
 TicTacToe (v1.01)
 
-*
+*Feature
 -better code organizing
 -fixing some bugs in inputting process
 -improving readability and maintainability
